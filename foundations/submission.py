@@ -32,7 +32,7 @@ def find_alphabetically_first_word(text: str) -> str:
     it is acceptable to either return an empty string or throw an error.
     """
     # BEGIN_YOUR_CODE (our solution is 1 line of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    return min(text.split())
     # END_YOUR_CODE
 
 
@@ -45,7 +45,7 @@ def euclidean_distance(loc1: Position, loc2: Position) -> float:
     are pairs of numbers (e.g., (3, 5)).
     """
     # BEGIN_YOUR_CODE (our solution is 1 line of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    return math.sqrt((loc1[0] - loc2[0])**2 + (loc1[1] - loc2[1])**2)
     # END_YOUR_CODE
 
 
@@ -73,7 +73,28 @@ def mutate_sentences(sentence: str) -> List[str]:
                 (Reordered versions of this list are allowed.)
     """
     # BEGIN_YOUR_CODE (our solution is 17 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    words = sentence.split()
+    adj_list = collections.defaultdict(list)
+    print(adj_list)
+    for i in range(len(words)-1):
+        adj_list[words[i]].append(words[i+1])
+    
+    # return a list of all sentences with given length and starting words, return empty list if there is no such setences.   
+    def find_all_sentences(start_word, length, adj_list):
+        if(length == 1):
+            return start_word 
+        sentences = list() 
+        for next_word in adj_list[start_word]:
+            next_sentences = find_all_sentences(next_word, length-1, adj_list)
+            if next_sentences != list():
+                sentences += list(start_word + " " + sub_sentence for sub_sentence in next_sentences)
+        return sentences
+
+    ans = list() # the list of answers 
+    for word in list(adj_list):
+        ans += find_all_sentences(word, len(words), adj_list)
+        
+    return ans
     # END_YOUR_CODE
 
 
@@ -91,7 +112,7 @@ def sparse_vector_dot_product(v1: SparseVector, v2: SparseVector) -> float:
     Note: A sparse vector has most of its entries as 0.
     """
     # BEGIN_YOUR_CODE (our solution is 1 line of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    return sum(v1[key] * v2[key] for key in v1)
     # END_YOUR_CODE
 
 
@@ -110,7 +131,8 @@ def increment_sparse_vector(v1: SparseVector, scale: float, v2: SparseVector,
     This function will be useful later for linear classifiers.
     """
     # BEGIN_YOUR_CODE (our solution is 2 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    for key in v2:
+        v1[key] += scale * v2[key] 
     # END_YOUR_CODE
 
 
@@ -124,6 +146,9 @@ def find_nonsingleton_words(text: str) -> Set[str]:
     You might find it useful to use collections.defaultdict(int).
     """
     # BEGIN_YOUR_CODE (our solution is 4 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    word_count = collections.defaultdict(int)
+    for word in text.split():
+        word_count[word] += 1
+    return set(word for word in word_count if word_count[word] > 1)
     # END_YOUR_CODE
 
