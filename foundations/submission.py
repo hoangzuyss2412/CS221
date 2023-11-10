@@ -73,7 +73,7 @@ def mutate_sentences(sentence: str) -> List[str]:
                 (Reordered versions of this list are allowed.)
     """
     # BEGIN_YOUR_CODE (our solution is 17 lines of code, but don't worry if you deviate from this)
-    '''
+    
     words = sentence.split()
     adj_list = collections.defaultdict(list)
     print(adj_list)
@@ -96,7 +96,7 @@ def mutate_sentences(sentence: str) -> List[str]:
         ans += find_all_sentences(word, len(words), adj_list)
         
     return ans
-    '''
+    
     # END_YOUR_CODE
 
 
